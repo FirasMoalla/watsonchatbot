@@ -33,13 +33,13 @@ In what follows we will create a Watson Conversation service on IBM Cloud.
 
 Clone the following repo and change your directory to where the sample application is located.
   ```
-git clone https://github.com/FirasMoalla/chatbot.git
-cd chatbot
+git clone https://github.com/FirasMoalla/watsonchatbot.git
+cd watsonchatbot
   ```
 
 ## 3. Bind the sample Node app to the Conversation service
 
-Open the `server.js` file in the `chatbot` folder and modify the `username`, `password` and `workspace\_id` in the following lines to match the credentials and workspace information that you have saved earlier.
+Open the `server.js` file in the `watsonchatbot` folder and modify the `username`, `password` and `workspace\_id` in the following lines to match the credentials and workspace information that you have saved earlier.
 
 ```javascript
 var conversation = new ConversationV1({
