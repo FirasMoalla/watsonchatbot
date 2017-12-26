@@ -53,10 +53,6 @@ function userInputEvent(event,inputBox){
 
 
 function aCall(userInput){
-//  $.ajax({url: "/api/message", success: function(result){
-//    console.log('Success call');
-//  }})  
-
    if(userInput){
    // Built http request
    var http = new XMLHttpRequest();
@@ -66,7 +62,6 @@ function aCall(userInput){
      if (http.readyState === 4 && http.status === 200 && http.responseText) {
        var watsonResponse = (JSON.parse(http.responseText)).output.text[0];
        console.log('respond: ' + watsonResponse);
-//       buildWatsonSegment(http.responseText);
        buildWatsonSegment(watsonResponse);
      }
   };
@@ -75,11 +70,6 @@ function aCall(userInput){
                                     
 }
 
- // Scroll to the bottom of the chat window (to the most recent messages)
- //   // Note: this method will bring the most recent user message into view,
- //     //   even if the most recent message is from Watson.
- //       //   This is done so that the "context" of the conversation is maintained in the view,
- //         //   even if the Watson message is long.
 function scrollToChatBottom() {
   
     var elem = document.getElementById('scrollingChat');
