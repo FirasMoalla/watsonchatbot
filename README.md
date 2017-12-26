@@ -1,17 +1,98 @@
+# Getting started with Node and Watson Chatbot on IBM Cloud
 
-# Node.js getting started application
-The Getting Started tutorial for Node.js uses this sample application to provide you with a sample workflow for working with any Node.js app on IBM Cloud or in IBM Cloud Private; you set up a development environment, deploy an app locally and on the cloud, and then integrate a IBM Cloud database service in your app.
+This lab will take you through the steps to get started with a simple Node application for a Chatbot in IBM Cloud and help you:
+- Set up a development environment
+- Download sample code
+- Run the application on IBM Cloud Cloud Foundry
+- Add an IBM Cloud Conversation service for a Chatbot
+- Implement a Chatbot
 
-The Node.js app uses [Express Framework](https://expressjs.com) and [Cloudant noSQL DB service](https://console.bluemix.net/catalog/services/cloudant-nosql-db) to add information to a database and then return information from a database to the UI. To learn more about how the app connects to Cloudant, see the [Cloudant library for Node.js](https://www.npmjs.com/package/cloudant).
+This lab is in two parts. In the first part, we will build a sample Node application for a chatbot. In the second part, we will implement the Chatbot.
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/IBM-Bluemix/get-started-java/master/docs/GettingStarted.gif" width="300" alt="Gif of the sample app contains a title that says, Welcome, a prompt asking the user to enter their name, and a list of the database contents which are the names Joe, Jane, and Bob. The user enters the name, Mary and the screen refreshes to display, Hello, Mary, I've added you to the database. The database contents listed are now Mary, Joe, Jane, and Bob.">
-</p>
+## Prerequisites
 
-The following steps are the general procedure to set up and deploy your app to IBM Cloud. See more detailed instructions in the [Getting started tutorial for Node.js](https://console.bluemix.net/docs/runtimes/nodejs/getting-started.html#getting-started-with-node-js-on-bluemix).
+You'll need the following:
+* [IBM Cloud account](https://console.ng.bluemix.net/registration/)
+* [Cloud Foundry CLI](https://github.com/cloudfoundry/cli#downloads)
+* [Git](https://git-scm.com/downloads)
 
-The starter application for IBM Cloud Private guides you through a similar process. However, instead of hosting both your service and application in the same cloud environment, you use a user-provided service. This guide shows you how to deploy your application to IBM Cloud Private and bind it to a Cloudant Database in IBM Cloud. For the complete procedure, see [Working with user-provided services and the Node.js starter app](https://www.ibm.com/support/knowledgecenter/SSBS6K_2.1.0/cloud_foundry/buildpacks/buildpacks_using_nodejsapp.html).
+# Part 1: Build a Chatbot app on IBM Cloud
 
-## Before you begin
+## 1. Create a Chatbot service
 
-You'll need a [IBM Cloud account](https://console.ng.bluemix.net/registration/), [Git](https://git-scm.com/downloads), [Cloud Foundry CLI](https://github.com/cloudfoundry/cli#downloads), and [Node](https://nodejs.org/en/) installed. If you use [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/), you need access to the [IBM Cloud Private Cloud Foundry](https://www.ibm.com/support/knowledgecenter/en/SSBS6K_2.1.0/cloud_foundry/overview.html) environment.
+In what follows we will create a Watson Conversation service on IBM Cloud.
+
+1. Log in to IBM Cloud in your Browser. Click on `Catalog` on the top right.
+2. Click on `Watson` on the left menu and then click on `Conversation`.
+3. Click on `Create` to create the service.
+4. Click on `Launch tool` from the Conversation services.
+5. Navigate to the IBM Watson Conversation dashboard tab and click on `Create` to create a new workspace. Enter a name for the worksspace in the `Name` field and click on `Create`.
+6. From the left menu on the IBM Watson Conversation dashboard, click on `Deploy`. This will display the credentials to access the Conversation services and the workspace that you have just created. Save the `Workspace ID`, `Username` and `Password` somwehere safe for later use.
+
+## 2. Clone the sample Node app
+
+Clone the following repo and change your directory to where the sample application is located.
+  ```
+git clone https://github.com/FirasMoalla/chatbot.git
+cd chatbot
+  ```
+
+## 3. Bind the sample Node app to the Conversation service
+
+Open the `server.js` file in the `chatbot` folder and modify the `username`, `password` and `workspace\_id` in the following lines to match the credentials and workspace information that you have saved earlier.
+
+```javascript
+var conversation = new ConversationV1({
+  username: '',
+  password: '',
+  version_date: ConversationV1.VERSION_DATE_2017_05_26
+});
+```
+
+```javascript
+workspace_id: ''
+```
+
+## 4. Deploy the app
+
+You can use the Cloud Foundry CLI to deploy applications.
+
+Choose your API endpoint
+   ```
+bx api https://api.eu-gb.bluemix.net
+   ```
+
+Login to your IBM Cloud account
+
+   ```
+bx login
+   ```
+
+Set the target to your organisation and space
+
+   ```
+bx target -o <organisation> -s <space>
+   ```
+
+From within the *chatbot* directory push your app to IBM Cloud
+   ```
+bx app push
+   ```
+
+This can take a minute. If there is an error in the deployment process you can use the command `bx logs <Your-App-Name> --recent` to troubleshoot.
+
+When deployment completes you should see a message indicating that your app is running. View your app at the URL listed in the output of the push command. You can also issue the
+  ```
+bx app list
+  ```
+command to view your apps status and see the URL.
+
+# Part 2: Implementing a Chatbot
+
+## Chatbot dialog excercise
+
+Write down a dialog in notes stumilating a use case.
+
+Browse to the Watson Conversation workspace and open the workspace that you have created in Part 1 to implement the use case.
+
+Test your use case through the application interface that you have deployed in Part 1.

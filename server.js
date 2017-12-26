@@ -1,7 +1,8 @@
 var express = require("express");
 var app = express();
-var cfenv = require("cfenv");
 var bodyParser = require('body-parser')
+var ConversationV1 = require('watson-developer-cloud/conversation/v1');
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -9,7 +10,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-var mydb;
+/* Initiate Conversation Instance */
+var conversation = new ConversationV1({
+  username: '3b9b6a06-cc97-4acf-af8b-22b09506e14e',
+  password: 'K1VhgNBxnjR5',
+//  url: 'https://gateway.watsonplatform.net/conversation/api/v1/workspaces/51f4ac96-577b-438d-bf00-1370a21bb711/message/',
+  version_date: ConversationV1.VERSION_DATE_2017_05_26
+});
+
 
 /* Endpoint to greet and add a new visitor to database.
 * Send a POST request to localhost:3000/api/visitors with body
@@ -17,93 +25,49 @@ var mydb;
 * 	"name": "Bob"
 * }
 */
-app.post("/api/visitors", function (request, response) {
-  var userName = request.body.name;
-  if(!mydb) {
-    console.log("No database.");
-    response.send("Hello " + userName + "!");
-    return;
-  }
-  // insert the username as a document
-  mydb.insert({ "name" : userName }, function(err, body, header) {
-    if (err) {
-      return console.log('[mydb.insert] ', err.message);
+app.post("/api/message", function (request, res) {
+  var userText = request.body.userInput;
+
+  conversation.message(
+    {
+      input: { text: 'hi' },
+      workspace_id: '51f4ac96-577b-438d-bf00-1370a21bb711'
+    },
+    function(err, response) {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(JSON.stringify(response, null, 2));
+        var resj = JSON.stringify(response, null, 2);
+        return res.send(resj);
+//        return response.json(JSON.stringify(response, null, 2));
+      }
     }
-    response.send("Hello " + userName + "! I added you to the database.");
-  });
+  );
+
+//  response.send("Hello " + userName + "! I added you to the database.");
 });
 
-/**
- * Endpoint to get a JSON array of all the visitors in the database
- * REST API example:
- * <code>
- * GET http://localhost:3000/api/visitors
- * </code>
- *
- * Response:
- * [ "Bob", "Jane" ]
- * @return An array of all the visitor names
- */
-app.get("/api/visitors", function (request, response) {
-  var names = [];
-  if(!mydb) {
-    response.json(names);
-    return;
-  }
-
-  mydb.list({ include_docs: true }, function(err, body) {
-    if (!err) {
-      body.rows.forEach(function(row) {
-        if(row.doc.name)
-          names.push(row.doc.name);
-      });
-      response.json(names);
+/*
+  conversation.message(
+    {
+      input: { text: 'hi' },
+      workspace_id: '51f4ac96-577b-438d-bf00-1370a21bb711'
+    },
+    function(err, response) {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(JSON.stringify(response, null, 2));
+//        response.send(JSON.stringify(response, null, 2));
+      }
     }
-  });
-});
+  );
+*/
 
-
-// load local VCAP configuration  and service credentials
-var vcapLocal;
-try {
-  vcapLocal = require('./vcap-local.json');
-  console.log("Loaded local VCAP", vcapLocal);
-} catch (e) { }
-
-const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
-
-const appEnv = cfenv.getAppEnv(appEnvOpts);
-
-if (appEnv.services['cloudantNoSQLDB'] || appEnv.getService(/cloudant/)) {
-  // Load the Cloudant library.
-  var Cloudant = require('cloudant');
-
-  // Initialize database with credentials
-  if (appEnv.services['cloudantNoSQLDB']) {
-     // CF service named 'cloudantNoSQLDB'
-     var cloudant = Cloudant(appEnv.services['cloudantNoSQLDB'][0].credentials);
-  } else {
-     // user-provided service with 'cloudant' in its name
-     var cloudant = Cloudant(appEnv.getService(/cloudant/).credentials);
-  }
-
-  //database name
-  var dbName = 'mydb';
-
-  // Create a new "mydb" database.
-  cloudant.db.create(dbName, function(err, data) {
-    if(!err) //err if database doesn't already exists
-      console.log("Created database: " + dbName);
-  });
-
-  // Specify the database we are going to use (mydb)...
-  mydb = cloudant.db.use(dbName);
-}
 
 //serve static file (index.html, images, css)
-app.use(express.static(__dirname + '/views'));
-
-
+app.use(express.static(__dirname + '/public'));
 
 var port = process.env.PORT || 3000
 app.listen(port, function() {
