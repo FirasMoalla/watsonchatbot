@@ -1,9 +1,9 @@
 # Getting started with Node and Watson Chatbot on IBM Cloud
 
-This lab will take you through the steps to get started with a simple Node application for a Chatbot in IBM Cloud and help you:
+This lab will take you through the steps to get started with a simple Node application for a Chatbot on IBM Cloud and help you:
 - Set up a development environment
 - Download sample code
-- Run the application on IBM Cloud Cloud Foundry
+- Run the application on IBM Cloud Foundry
 - Add an IBM Cloud Conversation service for a Chatbot
 - Implement a Chatbot
 
