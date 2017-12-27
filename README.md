@@ -39,7 +39,7 @@ cd watsonchatbot
 
 ## 3. Bind the sample Node app to the Conversation service
 
-Open the `server.js` file in the `watsonchatbot` folder and modify the `username`, `password` and `workspace\_id` in the following lines to match the credentials and workspace information that you have saved earlier.
+Open the `server.js` file in the `watsonchatbot` folder and modify the `username`, `password` and `workspace_id` in the following lines to match the credentials and workspace information that you have saved earlier.
 
 ```javascript
 var conversation = new ConversationV1({
