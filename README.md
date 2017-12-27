@@ -26,7 +26,7 @@ In what follows we will create a Watson Conversation service on IBM Cloud.
 2. Click on `Watson` on the left menu and then click on `Conversation`.
 3. Click on `Create` to create the service.
 4. Click on `Launch tool` from the Conversation services.
-5. Navigate to the IBM Watson Conversation dashboard tab and click on `Create` to create a new workspace. Enter a name for the worksspace in the `Name` field and click on `Create`.
+5. Navigate to the IBM Watson Conversation dashboard tab and click on `Create` to create a new workspace. Enter a name for the worksspace in the `Name` field and select `Arabic` from the `Language` list, then click on `Create`.
 6. From the left menu on the IBM Watson Conversation dashboard, click on `Deploy`. This will display the credentials to access the Conversation services and the workspace that you have just created. Save the `Workspace ID`, `Username` and `Password` somwehere safe for later use.
 
 ## 2. Clone the sample Node app
