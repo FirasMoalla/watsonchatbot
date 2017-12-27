@@ -11,8 +11,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 var conversation = new ConversationV1({
-  username: '3b9b6a06-cc97-4acf-af8b-22b09506e14e',
-  password: 'K1VhgNBxnjR5',
+  username: '',
+  password: '',
   version_date: ConversationV1.VERSION_DATE_2017_05_26
 });
 
@@ -22,7 +22,7 @@ app.post("/api/message", function (request, res) {
   conversation.message(
     {
       input: { text: userText },
-      workspace_id: '51f4ac96-577b-438d-bf00-1370a21bb711'
+      workspace_id: ''
     },
     function(err, response) {
       if (err) {
