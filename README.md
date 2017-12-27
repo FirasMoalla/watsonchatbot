@@ -96,3 +96,11 @@ Write down a dialog in notes stumilating a use case.
 Browse to the Watson Conversation workspace and open the workspace that you have created in Part 1 to implement the use case.
 
 Test your use case through the application interface that you have deployed in Part 1.
+
+# Resources
+
+* [Build a chatbot in 10 min with Watson](https://www.ibm.com/blogs/watson/2016/12/build-chat-bot/)
+* [Build a configurable, retail-ready chatbot](https://developer.ibm.com/code/patterns/create-cognitive-retail-chatbot/)
+* [Enhance a chatbot conversation with Context Variables and System Entities](https://www.ibm.com/blogs/bluemix/2017/11/enhance-chatbot-conversation-context-variables-system-entities/)
+* [3 types of business chatbots you can build](https://www.ibm.com/blogs/watson/2017/12/3-types-of-business-chatbots-you-can-build/)
+* [IBM Cloud Private](https://www.ibm.com/cloud-computing/products/ibm-cloud-private/) 
