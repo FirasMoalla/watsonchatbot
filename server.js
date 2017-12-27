@@ -36,7 +36,7 @@ app.post("/api/message", function (request, res) {
   );
 });
 
-//serve static file (index.html, images, css)
+//serve static file (index.html, js, images, css)
 app.use(express.static(__dirname + '/public'));
 
 var port = process.env.PORT || 3000
