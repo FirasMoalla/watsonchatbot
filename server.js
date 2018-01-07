@@ -1,42 +1,59 @@
-var express = require("express");
-var app = express();
-var bodyParser = require('body-parser')
-var ConversationV1 = require('watson-developer-cloud/conversation/v1');
+const express = require("express");
+const app = express();
+const bodyParser = require('body-parser')
+const ConversationV1 = require('watson-developer-cloud/conversation/v1');
 
-
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
-
-// parse application/json
 app.use(bodyParser.json())
 
-var conversation = new ConversationV1({
-  username: '',
-  password: '',
+const conversation = new ConversationV1({
+  username: '09d3fa5c-9aae-41ef-8bfc-1462a463550b',
+  password: 'koCEovRHxvAD',
   version_date: ConversationV1.VERSION_DATE_2017_05_26
 });
 
-app.post("/api/message", function (request, res) {
-  var userText = request.body.input;
+// chatbot conversation context
+var chatContext = null;
+
+const processResponse = (req, res) => {
+  const userText = req.body.input;
 
   conversation.message(
     {
       input: { text: userText },
-      workspace_id: ''
+      context : chatContext,
+      workspace_id: 'c82415bd-666c-4692-8a28-b34a8f4d549d'
     },
-    function(err, response) {
+    function(err, botResponse) {
       if (err) {
         console.error(err);
       } else {
-        console.log(JSON.stringify(response, null, 2));
-        var resj = JSON.stringify(response, null, 2);
-        return res.send(resj);
+        chatContext = botResponse.context;
+
+        // Display the output from dialog, if any.
+        if (botResponse.output.text.length != 0) {
+          console.log(botResponse.output.text[0]);
+        }
+
+        // If an intent was detected, log it out to the console.
+        if (botResponse.intents.length > 0) {
+          console.log('Detected intent: #' + botResponse.intents[0].intent);
+        }
+
+        // Display action, if any.
+        if (botResponse.output.action == 'display_time') {
+          console.log(botResponse.output.action);
+          return res.send(new Date().toLocaleTimeString());
+        }
+
+        return res.send(botResponse.output.text[0]);
       }
     }
   );
-});
+};
 
-//serve static file (index.html, js, images, css)
+app.post("/api/message", processResponse);
+
 app.use(express.static(__dirname + '/public'));
 
 var port = process.env.PORT || 3000

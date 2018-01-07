@@ -37,7 +37,13 @@ git clone https://github.com/FirasMoalla/watsonchatbot.git
 cd watsonchatbot
   ```
 
-## 3. Bind the sample Node app to the Conversation service
+## 3. Install dependencies 
+
+  ```
+npm install --save
+  ```
+
+## 4. Bind the sample Node app to the Conversation service
 
 Open the `server.js` file in the `watsonchatbot` folder and modify the `username`, `password` and `workspace_id` in the following lines to match the credentials and workspace information that you have saved earlier.
 
@@ -53,7 +59,7 @@ var conversation = new ConversationV1({
 workspace_id: ''
 ```
 
-## 4. Deploy the app
+## 5. Deploy the app
 
 You can use the Cloud Foundry CLI to deploy applications.
 
