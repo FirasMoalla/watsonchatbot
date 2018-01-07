@@ -30,17 +30,17 @@ const processResponse = (req, res) => {
       } else {
         chatContext = botResponse.context;
 
-        // Display the output from dialog, if any
+        // Display the output from dialog, if any.
         if (botResponse.output.text.length != 0) {
           console.log(botResponse.output.text[0]);
         }
 
-        // If an intent was detected, log it out to the console
+        // If an intent was detected, log it out to the console.
         if (botResponse.intents.length > 0) {
           console.log('Detected intent: #' + botResponse.intents[0].intent);
         }
 
-        // Execute time action
+        // Display action, if any.
         if (botResponse.output.action == 'display_time') {
           console.log(botResponse.output.action);
           return res.send(new Date().toLocaleTimeString());

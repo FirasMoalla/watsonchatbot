@@ -37,7 +37,7 @@ git clone https://github.com/FirasMoalla/watsonchatbot.git
 cd watsonchatbot
   ```
 
-## 3. Install dependencies 
+## 3. Install dependencies (optional for local development)
 
   ```
 npm install --save
