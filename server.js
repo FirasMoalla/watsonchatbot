@@ -7,8 +7,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 const conversation = new ConversationV1({
-  username: '09d3fa5c-9aae-41ef-8bfc-1462a463550b',
-  password: 'koCEovRHxvAD',
+  username: '',
+  password: '',
   version_date: ConversationV1.VERSION_DATE_2017_05_26
 });
 
@@ -22,7 +22,7 @@ const processResponse = (req, res) => {
     {
       input: { text: userText },
       context : chatContext,
-      workspace_id: 'c82415bd-666c-4692-8a28-b34a8f4d549d'
+      workspace_id: ''
     },
     function(err, botResponse) {
       if (err) {
