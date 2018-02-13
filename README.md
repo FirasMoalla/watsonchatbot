@@ -12,7 +12,7 @@ This lab is in two parts. In the first part, we will build a sample Node applica
 ## Prerequisites
 
 You'll need the following:
-* [IBM Cloud account](https://console.ng.bluemix.net/registration/)
+* [IBM Cloud account](https://ibm.biz/Bdj7bU)
 * [Cloud Foundry CLI](https://github.com/cloudfoundry/cli#downloads)
 * [Git](https://git-scm.com/downloads)
 
